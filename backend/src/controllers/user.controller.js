@@ -143,11 +143,7 @@ const loginUser = asyncHandler(async(req, res) => {
     .json(
         new ApiResponse(
             200,
-            {
-                user: loggedInUser,
-                accessToken,
-                refreshToken
-            },
+            loggedInUser,
             "User logged in successfully"
         )
     )
@@ -248,11 +244,12 @@ const changeCurrentPassword = asyncHandler(async(req, res) =>{
 })
 
 const getCurrentUser = asyncHandler(async(req, res) => {
+    const currentUser = await User.findOne(req.user._id).select("-password -refreshToken")
     return res
     .status(200)
     .json(new ApiResponse(
         200,
-        req.user,
+        currentUser,
         "Current user fatched successfully"
     ))
 })

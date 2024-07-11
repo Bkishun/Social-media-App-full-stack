@@ -1,83 +1,54 @@
-import React, { useEffect, useContext} from 'react';
-import SearchBar from './SearchBar';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
 import VideoCard from './VideoCard';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios
-import LoginContext from '../context/loginContext';
+import { fetchCurrentUser } from '../redux/slice/authSlice';
+
 
 function Home() {
   const navigate = useNavigate();
-  const {loginStatus, setLoginStatus} = useContext(LoginContext)
-
-  useEffect( () => {
-    const handleLoginStatus = async () => {
-      try {
-        console.log("inner block");
-        const response = await fetch('/api/v1/users/current-user', {
-          method: 'GET',
-          credentials: 'include', // Include credentials (cookies) in the request
-        });
-        console.log(response);
-        if (response.ok) {
-          const data = await response.json();
-          setLoginStatus(true);
-          console.log("login hai");
-        } else {
-          // Handle other status codes if needed
-          console.log("user not logged in");
-          setLoginStatus(false);
-        }
-      } catch (error) {
-        setLoginStatus(false);
-        console.log("something went wrong : ERR ==" + error.message);
-      }
-    };
-
-    handleLoginStatus();
-  }, [])
-  // const handleLoginStatus = async () => { // Mark function as async
-  //   try {
-  //     console.log("inner block")
-  //     const response = await axios.get('/api/v1/users/current-user');
-  //     if (response.status === 200) {
-  //       setLoginStatus(true);
-  //       console.log("login hai")
-  //     } else {
-  //       // Handle other status codes if needed
-  //       console.log("user not logged in")
-  //       setLoginStatus(false)
-  //     }
-  //   } catch (error) {
-  //     console.log("something went wrong : ERR ==" + error.message);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleLoginStatus();
-  // }, []);
+  const dispatch = useDispatch();
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  const videos = useSelector(state => state.videos.videos)
+  console.log(videos.docs)
 
   useEffect(() => {
-    console.log(loginStatus)
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!loginStatus) {
       navigate("/login");
     }
-  }, []);
+  }, [loginStatus, navigate]);
 
+  // useEffect( () => {
+
+  // }, [videos])
+
+  // const handleVideoClick = (videoId) => {
+  //   navigate(`/player/${videoId}`);
+  // }
+  
   return (
     <>
-      
       <div className='bg-gray-400 w-full min-h-[500px]'>
-        <div className='p-4'>
-          <SearchBar />
-        </div>
-        <div className='flex p-4 justify-start gap-[15px] w-full flex-wrap'>
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-        </div>
+
+        {/* <div className='flex p-4 justify-start gap-[15px] w-full flex-wrap'>
+        {videos.docs && videos.docs.length > 0 ? (
+          videos.docs.map((video) => (
+            <VideoCard
+              key={video._id}
+              video = {video}
+              onClick = {() => handleVideoClick(video._id)}
+              
+            />
+          ))
+        ) : (
+          <p>No videos available</p>
+        )}
+        </div> */}
+        <h1>Home page</h1>
       </div>
     </>
   );

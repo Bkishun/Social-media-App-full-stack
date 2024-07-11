@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
-import LoginContextProvider from './context/LoginContextProvider.jsx'
+// import LoginContextProvider from './context/LoginContextProvider.jsx'
+import { Provider } from 'react-redux'
+import { store } from './redux/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-    <LoginContextProvider>
+    <Provider store={store}>
     <App />
-    </LoginContextProvider>
+    </Provider>
     </BrowserRouter>
   </React.StrictMode>,
 )

@@ -1,36 +1,28 @@
-import React, { useContext } from 'react'
-import LoginContext from '../context/loginContext'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../redux/slice/authSlice';
 
 function Logout() {
-  const {loginStatus, setLoginStatus}  = useContext(LoginContext)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogout = async() => {
-    try {
-        const response = await fetch('/api/v1/users/logout', {
-            method: "POST",
-            credentials: "include"
-        })
-    
-        if(response.ok){
-            setLoginStatus(false)
-            if(loginStatus){
-                console.log("logout ho gya")
-                navigate("/login")
-            }
-            console.log("user is logged out")
-        } else{
-            console.log("user not logged out")
-        }
-    } catch (error) {
-        console.log("something went wrong")
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
+  useEffect(() => {
+    if (!loginStatus) {
+      navigate("/login");
     }
-  }
+  }, [loginStatus, navigate]);
+
   return (
-    <div className='bg-orange-700 rounded-md p-2 text-white font-medium hover:bg-orange-600'>
-        <button onClick={handleLogout} >Logout</button>
+    <div className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+      <button onClick={handleLogout}>Logout</button>
     </div>
-  )
+  );
 }
 
-export default Logout
+export default Logout;

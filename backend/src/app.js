@@ -3,9 +3,9 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 
 const app = express()
-
+console.log("entry point")
 app.use(cors({
-    origin: 'https://social-media-app-api.vercel.app',
+    origin: 'http://localhost:5173',
     methods:['POST', 'GET'],
     credentials: true
 }))
