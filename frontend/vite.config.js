@@ -6,7 +6,7 @@ export default defineConfig({
   server:{
     proxy: {
       // '/api' :  "http://localhost:8000"
-      '/api' :  "https://baki-backend.onrender.com"
+      '/api' :  "https://social-media-app-full-stack-ofrq.onrender.com"
     }
   },
   plugins: [react()],
