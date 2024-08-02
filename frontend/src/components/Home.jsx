@@ -10,7 +10,7 @@ function Home() {
   const dispatch = useDispatch();
   const loginStatus = useSelector((state) => state.auth.loginStatus);
   const videos = useSelector(state => state.videos.videos)
-  console.log(videos.docs)
+  console.log(videos.docs) // home
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
