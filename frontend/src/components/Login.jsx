@@ -42,7 +42,7 @@ export default function Login() {
               </div>
               <div>
                 <p className="text-red-800 font-medium">
-                  Don't have an account?
+                  Don't have any account?
                 </p>
                 <NavLink to="/signup">
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
