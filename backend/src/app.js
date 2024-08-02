@@ -6,7 +6,7 @@ const app = express()
 console.log("entry point")
 app.use(cors({
     // origin: 'http://localhost:5173',
-    origin: 'https://frontend-qi8sw3tgy-bkishun-projects-493ffc2c.vercel.app',
+    origin: "*",
     methods:['POST', 'GET'],
     credentials: true
 }))
