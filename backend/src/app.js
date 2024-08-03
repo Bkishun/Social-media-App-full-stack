@@ -5,8 +5,8 @@ import cookieParser from "cookie-parser"
 const app = express()
 console.log("entry point")
 app.use(cors({
-    // origin: 'http://localhost:5173',
-    origin: "https://frontend-delta-snowy-76.vercel.app",
+    origin: 'http://localhost:5173',
+    // origin: "https://frontend-delta-snowy-76.vercel.app",
     methods:['POST', 'GET'],
     credentials: true
 }))
