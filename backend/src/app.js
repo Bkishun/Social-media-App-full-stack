@@ -25,7 +25,11 @@ import likeRouter from "./routes/like.routes.js"
 
 // router declaration
 app.get('/', (req, res) => {
-    res.json({"connection" : "true"})
+    res.json({
+        "connection" : "true",
+        "port" : "3000",
+
+    })
 })
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/videos", videoRouter)
