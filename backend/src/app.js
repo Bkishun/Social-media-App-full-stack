@@ -24,7 +24,9 @@ import commentRouter from "./routes/comment.routes.js"
 import likeRouter from "./routes/like.routes.js"
 
 // router declaration
-
+app.get('/', (req, res) => {
+    res.json({"connection" : "true"})
+})
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/videos", videoRouter)
 app.use("/api/v1/subscription", subscriptionRouter)
